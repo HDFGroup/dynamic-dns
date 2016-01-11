@@ -39,7 +39,7 @@ You can imagine getting around this by configuring special DNS lookup rules for 
 HDF5 file managed by h5serv, but this would require a config update every time a new 
 file was created (say by a ``PUT /`` request).  
 
-The DNS server in this repository, local_dns.py, gets around this by simply
+The DNS server in this repository, local_dns.py, avoids this issue by simply
 responding to any DNS request with the configured base domain name to the IP address of h5serv.
 Any request that doesn't map to the base domain name will be forwarded to a regular DNS
 server.
