@@ -29,11 +29,11 @@ Example:
 The service will look at the Host header line to determine which HDF5 file the ``GET /`` 
 request refers to and return the appropriate response. 
 
-However, if you type ``http://hdf_data.mydata.myorg.org`` in your favorite web browser you
+However, if you type `http://hdf_data.mydata.myorg.org` in your favorite web browser you
 will most likely get a DNS lookup failure.  These is because the DNS server your browser
-is talking to doesn't know how to resolve the domain name: ``hdf_data.mydata.myorg.org``.  
-You can verify this by running: ``nslookup hdf_data.mydata.myorg.org``, you should see a response:
-``** server can't find hdf_data.mydata.myorg.org``.
+is talking to doesn't know how to resolve the domain name: `hdf_data.mydata.myorg.org`.  
+You can verify this by running: `nslookup hdf_data.mydata.myorg.org`, you should see a response:
+`** server can't find hdf_data.mydata.myorg.org`.
 
 You can imagine getting around this by configuring special DNS lookup rules for each 
 HDF5 file managed by h5serv, but this would require a config update every time a new 
@@ -44,8 +44,8 @@ responding to any DNS request with the configured base domain name to the IP add
 Any request that doesn't map to the base domain name will be forwarded to a regular DNS
 server.
 
-So a request to resolve ``hdf_data.myserv.myorg.org`` would return the IP address of h5serv, 
-while a request to resolve ``www.google.com`` would be forwarded to a standard DNS server.
+So a request to resolve `hdf_data.myserv.myorg.org`` would return the IP address of h5serv, 
+while a request to resolve `www.google.com` would be forwarded to a standard DNS server.
 
 Running dynamic_dns
 ---------------++--
@@ -55,14 +55,17 @@ in config.py to what makes sense for your network.  Using the above example, dom
 be myserv.myorg.org and local_ip can be left as just 127.0.0.1 if we are running h5serv and 
 dynamic_dns on the same host.
 
-Next, start the dynamic_dns server: ``sudo python dynamic_dns.py``
+Next, start the dynamic_dns server: `sudo python dynamic_dns.py`
 
 *Note:* You will need to run as root since dynamic_dns using port 53 (the standard DNS port).
 
-Now when you run: ``nslookup hdf_data.mydata.myorg.org 127.0.0.1``, you should see a response:
-``Non-authoritative answer:``
-``Name: hdf_data.mydata.myorg.org``
-``Address: 127.0.0.1``
+Now when you run: `nslookup hdf_data.mydata.myorg.org 127.0.0.1`, you should see a response:
+
+`Non-authoritative answer:`
+
+`Name: hdf_data.mydata.myorg.org`
+
+`Address: 127.0.0.1`
 
 dynamic_dns has resolved the domain name hdf_data.mydata.myorg.org to the local ip address.
 
@@ -89,19 +92,19 @@ domain response for tall.h5.
 If we trace the chain of events in displaying this page it
 would be something like this (the actual IP address may be different than what you see here):
 
- #. User enters ``http://tall.data.hdfgroup.org:7253`` in the browser
- #. The browser sends the domain "tall.data.hdfgroup.org" to its normal DNS server
- #. If the DNS server is not familiar with "hdfgroup.org" it forwards the request to the root domain server
- #. The root domain server resolves "hdfgroup.org" the IP address 50.28.50.143
- #. The HDFGroup DNS server at 50.28.50.143 gets the request to resolve "data.hdfgroup.org"
- #. The HDF Group DNS server sees that "data" maps to a zone managed by the DNS server (dynamic_dns) at IP address 54.174.38.12
- #. Finally, the dynamic_dns.py service gets the DNS request and resolves the name "tall.data.hdfgroup.org" and returns the IP address 54.174.38.12 and returns the requested IP to the browser
- #. With the dns name resolved, the browser sends the original http request to port 7253 on the machine with IP address 54.174.38.12.
- #. This request is processed by h5serv which returns a http status of 200 followed by the response body
- #. The browser renders the response:
+ 1. User enters `http://tall.data.hdfgroup.org:7253` in the browser
+ 2. The browser sends the domain "tall.data.hdfgroup.org" to its normal DNS server
+ 3. If the DNS server is not familiar with "hdfgroup.org" it forwards the request to the root domain server
+ 4. The root domain server resolves "hdfgroup.org" the IP address 50.28.50.143
+ 5. The HDFGroup DNS server at 50.28.50.143 gets the request to resolve "data.hdfgroup.org"
+ 6. The HDF Group DNS server sees that "data" maps to a zone managed by the DNS server (dynamic_dns) at IP address 54.174.38.12
+ 7. Finally, the dynamic_dns.py service gets the DNS request and resolves the name "tall.data.hdfgroup.org" and returns the IP address 54.174.38.12 and returns the requested IP to the browser
+ 8. With the dns name resolved, the browser sends the original http request to port 7253 on the machine with IP address 54.174.38.12.
+ 9. This request is processed by h5serv which returns a http status of 200 followed by the response body
+ 10. The browser renders the response:
  
  
-.. code-block:: json
+```
 
   {
   root: "345239f2-963f-11e4-b8cf-06fc179afd5e",
@@ -115,7 +118,7 @@ would be something like this (the actual IP address may be different than what y
     {href: "http://tall.data.hdfgroup.org:7253/groups/345239f2-963f-11e4-b8cf-06fc179afd5e",rel: "root"}
    ]
   }
-
+```
 
 
 
