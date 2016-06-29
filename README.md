@@ -44,11 +44,11 @@ responding to any DNS request with the configured base domain name to the IP add
 Any request that doesn't map to the base domain name will be forwarded to a regular DNS
 server.
 
-So a request to resolve `hdf_data.myserv.myorg.org`` would return the IP address of h5serv, 
+So a request to resolve `hdf_data.myserv.myorg.org` would return the IP address of h5serv, 
 while a request to resolve `www.google.com` would be forwarded to a standard DNS server.
 
 Running dynamic_dns
----------------++--
+-------------------
 
 Before starting the dynamic_dns server, update the local_ip, and default_dns config values 
 in config.py to what makes sense for your network.  Using the above example, domain would 
